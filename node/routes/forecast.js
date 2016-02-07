@@ -51,17 +51,17 @@ exports.addForecast = function(req, res) {
 
 exports.updateForecast = function(req, res) {
     var id = req.params.id;
-    var forecast = req.body;
+    var update = req.body;
     console.log('Updating forecast: ' + id);
-    console.log(JSON.stringify(forecast));
+    console.log(JSON.stringify(update));
     var collection = db.collection('forecast');
-    collection.update({'_id':new BSON.ObjectID(id)}, forecast, {safe:true}, function(err, result) {
+    collection.update({'_id':new BSON.ObjectID(id)}, update, {safe:true}, function(err, result) {
         if (err) {
             console.log('Error updating forecast: ' + err);
             res.send({'error':'An error has occurred'});
         } else {
             console.log('' + result + ' document(s) updated');
-            res.send(forecast);
+            res.send(update);
         }
     });
 }
